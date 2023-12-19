@@ -95,11 +95,10 @@
   background-color:inherit;
 }
 
-
 @media screen and (max-width:768px) {
-    .navTrigger {
+
+.navTrigger {
         display: block;
-        color: #ca5800;
     }
     .nav div.logo {
         margin-left: 15px;
@@ -120,7 +119,7 @@
         right: 0;
         left: 0;
         bottom: 0;
-        background-color:black;
+        background-color: #FEFEB7;
         background-position: center top;
     }
     .nav div.main_list ul li {
@@ -132,7 +131,6 @@
         width: 100%;
         font-size: 16px;
         padding: 20px;
-        color: #FEFEB7;
     }
     .nav div.media_button {
         display: block;
@@ -150,12 +148,10 @@
     right: 30px;
     top: 0;
     bottom: 0;
-    color: #ca5800;
 }
 
 .navTrigger i {
-    background-color: #ffffff00;
-    color: #FEFEB7;
+    background-color: #ca5800;
     border-radius: 2px;
     content: '';
     display: block;
@@ -200,11 +196,143 @@
     animation: inBtm 0.8s forwards;
 }
 
+@-webkit-keyframes inM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes inM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes outM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes outM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes inT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes inT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes outT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes inBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes inBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes outBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
 </style>
  <nav class="nav">
         <div class="container">
             <div class="logo">
-                <a href="/"><span><strong style="font-size:30px;color: #ca5800;">HeYou</strong></a>
+                <a href="/"><span><strong>HeYou</strong></a>
             </div>
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
@@ -213,7 +341,7 @@
                     <li><a href="/login">LogIn</a></li>
                 </ul>
             </div>
-            <span class="navTrigger">
+            <span style="color: #27036A;" class="navTrigger">
                 <i></i>
                 <i></i>
                 <i></i>
