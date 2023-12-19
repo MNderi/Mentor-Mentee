@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<style>
+
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+/*header styling starts*/
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  text-align: center;
+  padding: 20px 40px;
+  background-color: #fff;
+  box-shadow: 0px 8px 7px -11px #000;
+  -webkit-box-shadow: 0px 8px 7px -11px #000;
+  height: 80px;
+}
+.hamburger-icon {
+  background: transparent;
+  border: transparent;
+  font-size: 26px;
+  line-height: 36px;
+  color: #f8820c;
+  margin-right: 40%;
+
+}
+a.logo {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    display: inline-block; /* Ensure the anchor is treated as a block */
+}
+
+a.logo h1 {
+    margin: 0; /* Remove default margin for h1 */
+    font-size:30px;
+    color: #ca5800;
+    font-weight: bold;
+}
+
+.hamburger-icon:hover {
+  cursor: pointer;
+}
+
+
+/*navbar styling starts*/
+.nav {
+  border: 20px solid #fff;
+  border-left: 0px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  position: fixed;
+  border-radius: 0px 50% 50% 0px;
+  top: -35px;
+  overflow: hidden;
+  left: -100%;
+  width: 400px;
+  background: no-repeat center center;
+  background-color:#FEFEB7 ;
+  height: calc(100vh + 97px);
+  min-height: 700px;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+}
+.nav:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  width: 200%;
+  height: 100%;
+  border-radius: 0px 50% 50% 0px;
+  color: white;
+}
+.nav-content {
+  margin-left: 40px;
+  position: relative;
+  z-index: 1;
+}
+.nav-content .cross-btn {
+  margin-bottom: 50px;
+  background: transparent;
+  color: #f8820c;
+  border: transparent;
+  font-size: 24px;
+  line-height: 34px;
+  padding: 5px 15px;
+}
+.nav-content .cross-btn:hover {
+  cursor: pointer;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.nav-content li {
+  display: block;
+  margin-bottom: 25px;
+}
+.nav-content li a {
+  text-decoration: none;
+  color: white;
+  text-transform: capitalize;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  position: relative;
+  padding: 5px 15px;
+}
+.nav-content li a:hover::after {
+  opacity: 1;
+  width: 100%;
+}
+.nav-content li a::after {
+  opacity: 0;
+  content: "";
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: #f8820c;
+  z-index: -1;
+  transform: skewX(15deg);
+  -webkit-transform: skewX(15deg);
+  margin-left: 2px;
+}
+.terms-links {
+  margin-top: 120px;
+}
+.terms-links li a {
+  font-size: 12px;
+  line-height: 22px;
+}
+
+/*jquery styling */
+.nav-left {
+  left: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.content-left {
+    margin-left: 200px; /* Same width as the nav */
+}
+/*banner styling ends*/
+@media (min-width: 1450px) and (max-width: 1599px) {
+  .container {
+    width: 1310px;
+  }
+
+  .nav {
+    width: 500px;
+    top: -43px;
+  }
+}
+@media (min-width: 1600px) and (max-width: 1920px) {
+  .container {
+    width: 1510px;
+  }
+  .nav {
+    width: 500px;
+    top: -48px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .nav {
+    width: 400px;
+    top: -45px;
+  }
+  .nav-content .cross-btn {
+    margin-bottom: 30px;
+  }
+  .nav-content li {
+    margin-bottom: 20px;
+  }
+ 
+  /*banner styling starts*/
+ 
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .nav {
+    width: 370px;
+    top: -44px;
+  }
+  .nav-content .cross-btn {
+    margin-bottom: 30px;
+  }
+  .nav-content li {
+    margin-bottom: 20px;
+  }
+  .terms-links {
+    margin-top: 100px;
+  }
+  /*banner styling starts*/
+  .container {
+    width: 720px;
+    padding: 0px 15px;
+  }
+
+  .theme-btn {
+    padding: 14px 40px;
+  }
+}
+@media (max-width: 767px) {
+  .nav {
+    width: 295px;
+    top: -44px;
+  }
+  .nav-content {
+    margin-left: 20px;
+  }
+  .nav-content .cross-btn {
+    margin-bottom: 20px;
+  }
+  .nav-content li {
+    margin-bottom: 10px;
+  }
+  .nav-content li a {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .terms-links {
+    margin-top: 50px;
+  }
+  header {
+    padding: 20px;
+  }
+ 
+  .hamburger-icon {
+    font-size: 22px;
+    line-height: 32px;
+  }
+}
+
+</style>
+<body>
+  <header>
+    <button class="hamburger-icon"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    <a href="/" class="logo"> <h1>HeYou</h1></a>
+  </header>
+  <div class="nav">
+    <div class="nav-content">
+      <button class="cross-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
+      <ul>
+        <li><a href="/"> Home </a></li>
+        <li><a href="/mentee/profile"> Your profile</a></li>
+        <li><a href="/mentee/tasks"> My programs </a></li>
+        <li><a href="/allPrograms"> Find </a></li>
+        <li><a href="/about"> About </a></li>
+        <li><a href="/logout"> Logout </a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <script>
+$(document).ready(function () {
+    $(document).on("click", ".hamburger-icon", function () {
+        $(".nav").addClass("nav-left");
+    });
+
+    $(document).on("click", ".cross-btn", function () {
+        $(".nav").removeClass("nav-left");
+    });
+});
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100%;
+            background-color: whitesmoke;
+            color: #27036A;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navigation {
+            position: relative;
+            background-color: whitesmoke;
+            z-index: 100;
+        }
+
+        .welcomemessage {
+            min-height: 250px;
+            border-radius: 15px;
+            width: 80%;
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            text-align: center;
+            border: 2px solid #D9D9D9;
+        }
+
+        .content {
+            width: 90%;
+            margin-left: 10%;
+            margin-top: 5%;
+        }
+
+        .grid-slide {
+            margin: 5% auto;            
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 600px;
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+        .card-text.program {
+            color: #27036A;
+            font-weight: bold;
+        }
+
+        .card-text.venue {
+            color: #D9D9D9;
+        }
+        .card-text.date {
+            color: gray;
+            font-size: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .btn-group button {
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        .confirmation-dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .dialog-content {
+            text-align: center;
+        }
+
+        .confirmation-dialog button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .navigation{
+         position: relative;
+         z-index: 100;
+        }
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+        }
+        #modal-content{
+        background: #FEFEB7;
+        margin: 10% auto;
+        padding: 20px;
+        width: 50%;
+        border-radius: 8px;
+        color: #27036A;
+        }
+
+
+        .close {
+        color: #e16868;
+        float: right;
+        font-size: 30px;
+        font-weight: bold;
+        margin-left: 90%;
+        margin-bottom: 40px;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #ED760F;
+        text-decoration: none;
+        cursor: pointer;
+        }
+        #createForm{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px; 
+            max-width: 400px; 
+            margin: auto; 
+        }
+        #createForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #27036A;
+        }
+
+        #createForm input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border:1px #ED760F;
+            border-radius: 3px;
+        }
+
+        #createForm button{
+        flex: 1;  
+        background-color:#27036A;
+        color: #FEFEB7;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 200px;
+        margin-top: 4%;
+        margin-left:auto;
+        margin-right: auto;
+        }
+        #createForm button:hover{
+            background-color: palevioletred;
+        }
+        
+        .createButton {
+            background-color: #27036A;
+            color: #FEFEB7;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        footer{
+            margin-top: 10%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navigation">
+        {{>mentorheader}}
+    </div>
+
+    <div id="content container-fluid">
+
+        <div class="container-fluid px-4" style="margin-top: 10%;">
+            <div class="row mx-auto mt-3 justify-content-center d-flex d-md-none">
+                <button type="button" class="btn btn-sm btn-toggle" data-toggle="button" aria-pressed="false"
+                    autocomplete="off" onclick="toggleDarkLight()">
+                    <div class="handle"></div>
+                </button>
+                <p class="mb-0" color="black">Dark mode </p>
+            </div>
+
+            <div class="welcomemessage">
+                <h1 style="color:#27036A; font-weight: bold;">Hi, Welcome</h1>
+
+                <p style="color: grey;">How is it going with the coaching? We hope it's entirely good. Anytime you have questions, feel free
+                    to let us know. In the meantime, this dashboard should help you track your activities.</p>
+
+            </div>
+
+        </div>
+
+        
+        <button class="createButton" onclick="openModal()">Create new</button>
+        <br><br><br>
+        <h1 style="color:#27036A; font-weight: bold; text-align: center;">You programs</h1>
+
+        <br><br>
+
+
+        <div class="container mt-4">
+            <div class="row grid-slider">
+                {{#myPrograms}}
+
+                <div class="col-md-6">
+                    <div class="grid-slide mb-4">
+                        
+                        <div class="card">
+                          <div style="background:url('https://images.pexels.com/photos/673857/pexels-photo-673857.jpeg?auto=compress&cs=tinysrgb&w=600'); background-repeat: no-repeat; background-size: cover;"></div>
+                            <div class="card-body" style="background-color: #FFFFFF;">
+                                <p class="card-text program">Program: {{program}}</p>
+                                <p class="card-text venue">Venue: {{venue}}</p>
+                                <p class="card-text venue">Creator: {{creator}}</p>
+                                <p class="card-text date">Start Date: {{date}}</p>
+                                <p class="card-text date">End Date: {{endDate}}</p>
+                                <div class="btn-group">
+                                    <form action="/specificProgram/mentor" method="POST">
+                                    <input type="hidden" id="programData"  name="program" value="{{program}}">
+                                    <input type="hidden" id="creatorData" name="creator" value="{{creator}}">
+                                  
+                                    <button  class="btn" style="background-color: #27036A; color: #FEFEB7;">View Program</button>
+                                   </form>
+                                    <button onclick="openDialog(this)" data-program="{{program}}" data-creator="{{creator}}" class="btn btn-danger" style="background-color: #ED760F; color: #27036A;">Delete</button>
+                                </div>                               
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                {{/myPrograms}}
+
+            </div>
+
+        </div>
+
+
+        <div id="confirmationDialog" class="confirmation-dialog">
+            <form action="/mentor/program/delete" method="POST"> 
+            <div class="dialog-content">
+                <input type="hidden" id="dialogProgram"  name="program" >
+                <input type="hidden" id="dialogCreator" name="creator" >
+                <p>Are you sure you want to Delete this program?</p>
+                <button id="confirmUnenroll"  type="submit">Yes</button>
+                <button  type="button" onclick="closeDialog()"  id="cancelUnenroll">No</button>
+            </div>
+        </form>
+        </div>
+
+        
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" id="modal-content">
+      <span style="color: #e16868;" class="close" onclick="closeModal()">&times;</span>
+      <!-- Your form content goes here -->
+      <form id="createForm" action="/mentor/create" method="POST" onsubmit="return validateForm()">
+        <label for="program"> Program Name:</label>
+        <input type="text" id="program" name="program" required>
+        <label for="date">Start Date:</label>
+        <input type="date" id="date" name="date" required>
+        <label for="edate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+        <label for="venue">Venue</label>
+        <input type="text" id="venue" name="venue" required>
+        <label for="description">Description</label>
+        <textarea type="text" id="description" name="description" required></textarea>
+        <label for="category">Select a Service:</label>
+        <select id="category" name="category">
+            <option value="Career Advice">Career Advice</option>
+            <option value="Resume Review">Resume Review</option>
+            <option value="Mock Interview">Mock Interview</option>
+        </select>
+        <label for="creator">created By:</label>
+        <input type="text" id="creator" name="creator" required>
+        <button type="submit">Create</button>
+        <button type="button" onclick="closeModal()">Cancel</button>
+
+      </form>
+    </div>
+  
+  </div>
+
+  <div class="welcomemessage">
+    <h1 style="color:#27036A; font-weight: bold;">How was your experience</h1>
+
+    <p style="color: grey;">Mentorship is a powerful and impactful practice that has been instrumental in personal and 
+        professional development across various fields. At its core, mentorship is a
+         relationship in which a more experienced or knowledgeable person helps to guide a less 
+         experienced or less knowledgeable person. However, it's much more than just passing on knowledge; 
+        it's about fostering growth, providing support, and sharing experiences and insights.</p>
+
+</div>
+
+  <footer>
+    {{>footer}}
+</footer>
+
+  
+        <script>
+            function validateForm() {
+    const startDate = document.getElementById('date').value;
+    const endDate = document.getElementById('endDate').value;
+
+    // Convert input dates to Date objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Remove time component
+
+    // Check if dates are in the past
+    if (start < currentDate || end < currentDate) {
+        alert("Dates cannot be in the past.");
+        return false;
+    }
+
+    // Check if start date is before end date
+    if (start > end) {
+        alert("Start date must be before end date.");
+        return false;
+    }
+
+    return true; // Allow form submission
+}
+
+
+     document.addEventListener("DOMContentLoaded", function () {
+          
+            var welcomeMessage = document.querySelector('.welcomemessage');
+            welcomeMessage.style.opacity = '1';
+            var cards = document.querySelectorAll('.grid-slider .card');
+            cards.forEach(function (card) {
+                card.addEventListener('mouseover', function () {
+                    card.style.transform = 'scale(1.06)';
+                });
+
+                card.addEventListener('mouseout', function () {
+                    card.style.transform = 'scale(1)';
+                });
+            });
+        }); 
+
+
+function openDialog(element) {
+    var program = element.getAttribute('data-program');
+    var creator = element.getAttribute('data-creator');
+
+    document.getElementById('dialogProgram').value = program;
+    document.getElementById('dialogCreator').value = creator;
+    document.getElementById("confirmationDialog").style.display = "block";
+}
+
+// function removeProgram(){
+
+//   const program = document.getElementById('programData').value;
+//   const creator = document.getElementById('creatorData').value;
+
+//   console.log(program,creator);
+
+//       const formData = new URLSearchParams();
+//       formData.append('program', program);
+//       formData.append('creator', creator);
+
+//       fetch('/mentee/unenroll', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: formData.toString(),
+//       })
+//         .then(response => {
+//             if (response.ok) {
+//               document.getElementById("confirmationDialog").style.display = "none";
+//             } else {
+//                 console.error('Failed to Enroll');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+
+
+//     }
+
+
+
+
+function closeDialog(){
+
+    document.getElementById("confirmationDialog").style.display = "none";
+  }      
+
+
+
+function openModal() {
+
+document.getElementById('myModal').style.display = 'block';
+}
+
+// Function to close the modal
+function closeModal() {
+document.getElementById('myModal').style.display = 'none';
+}
+
+function toggleAccordion(btn) {
+      // Toggle the active class on the clicked accordion item
+      btn.parentElement.classList.toggle("active");
+
+      // Toggle the max-height of the accordion item content
+      var content = btn.nextElementSibling;
+      if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+      } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+      }
+  }
+
+function removeProgram(){
+
+const program = document.getElementById('programData').value;
+const creator = document.getElementById('creatorData').value;
+
+console.log(program,creator);
+
+    const formData = new URLSearchParams();
+    formData.append('program', program);
+    formData.append('creator', creator);
+
+    fetch("/mentor/program/delete", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData.toString(),
+    })
+      .then(response => {
+          if (response.ok) {
+            document.getElementById("confirmationDialog").style.display = "none";
+          } else {
+              console.error('Failed to delete program');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+
+
+  }
+
+
+
+</script>
+</body>
+
+</html>

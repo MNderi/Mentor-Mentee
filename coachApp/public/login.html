@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>mentor||Mentee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+<link href="../css/home.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- CSS theme (includes Bootstrap)-->
+
+</head> 
+<body style="background-color:whitesmoke;
+color:#27036A;
+max-height: 90vh;
+overflow-x:hidden;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+">
+<style>
+  :root {
+        --primary: #ED760F;
+        --light: #dfe5f7;
+        --dark: #27036A;
+        --text:#FEFEB7;
+    }
+</style>
+   <div class="container row">
+    <div class="col-12 col-md-5 container">
+     
+
+     <form style="margin-top: 20%;" action="/login" method="POST">
+        <h4 style="font-size:x-large; margin-bottom: 3%;" class="justify-content-center"> Login to your HeYou Account</h4>
+        <label for='mail' style="font-size:16px;">Email Address</label><br>
+        <input type="email" id='mail' name='mail' required class="mb-4 col-md-4 form-control"><br>
+        <label for="password" style="font-size:16px;">Password</label><br>
+        <input type="password" id='password' name='password' required class="mb-4 col-md-4 form-control">
+        <br><br>
+        
+        <button style="font-size:20px; background-color: #ED760F; color: #27036A;" class="btn btn-lg btn-block col-md-12" type="submit">Log In</button><br><br>
+        <p style="font-size:16px;">Don't have an account?<span style="color:#27036A; margin-left:10px;" ><a href="signup">Sign Up</a></span></p>
+     </form>
+
+    </div>
+
+    <div class='col-md-6 col-0'>
+        <img src="https://images.pexels.com/photos/4050320/pexels-photo-4050320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=350&dpr=2">
+    </div>
+
+
+   </div>
+   <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionExpired = urlParams.get('session');
+        
+        if (sessionExpired === 'expired') {
+          alert('Your session has expired. Please log in again.');
+        }
+      });
+    </script>
+    
+
+</body>
+
+</html>

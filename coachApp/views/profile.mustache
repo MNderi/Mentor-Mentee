@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      </head>
+<body>
+
+    <style>
+body {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    min-height: 2000px;
+}
+
+.background {
+  background: url('https://images.pexels.com/photos/35857/amazing-beautiful-breathtaking-clouds.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center top;
+  background-size: cover;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 100%;
+  opacity: 0.5;
+}
+
+.background:after {
+  content: "";
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: 0.5;
+}
+
+.card {
+  margin: 70px auto 200px;
+  width: 50%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+.cover-bg {
+  width: 100%;
+  height: 120px;
+  background: #b4e2d6;
+  background: url('https://images.pexels.com/photos/131683/pexels-photo-131683.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260') no-repeat center;
+  background-size: 260%;
+  border-radius: 5px 5px 0 0;
+}
+
+.user-info {
+  padding-left: 16px;
+  padding-top: 10px;
+}
+
+.user-info-wrap {
+  margin-top: -35px;
+  display: flex;
+  padding: 0 20px;
+}
+
+.user-name {
+  font-weight: 500;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  margin-top: -5px;
+}
+
+.user-title {
+  font-size: 16px;
+  font-weight: 200;
+  color: #8b8784;
+  display: block;
+  margin-top: 10px;
+}
+
+.user-photo {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+
+}
+
+.user-bio {
+  padding: 20px;
+}
+
+.user-bio p {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.social {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-icons {
+  display: flex;
+}
+
+.social a {
+  display: block;
+  height: 20px;
+  color: #D5D4DF;
+  margin-right: 13px;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.social a .fa {
+  height: 32px;
+}
+
+.social a:hover {
+  color: #ED760F;
+}
+
+.social .message a {
+  margin: 0;
+}
+
+header{
+    margin-bottom: 5%;
+}
+.navigation{
+          position: relative;
+          z-index: 100;
+        }
+
+.popup-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color:#FEFEB7;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* Styles for the overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Close button style */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Profile photo style */
+        #profile-photo {
+            max-width: 100%;
+            height: auto;
+        }
+        #editProfileForm{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px; 
+        margin: auto; /* Center the form */
+        }
+        #editProfileForm button{
+        flex: 1;  
+        background-color:#27036A;
+        color: #FEFEB7;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 4%;
+        margin-left: 25%;
+        margin-right: auto;
+        }
+        #editProfileForm button:hover{
+            background-color: #ED760F;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #27036A;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border:1px #ED760F;
+            border-radius: 3px;
+        }
+</style>
+
+<header>
+    <div class="navigation">
+     {{>memberheader}}
+  </div>
+  </header>
+<div class="background" id="parallax-bg"></div>
+<br><br><br>
+{{#identity}}
+<div class="card">
+ <i id="edit-icon" style="margin-left:90%; font-size: 20px; color: #ED760F;"class="fas fa-edit" onclick="openEditProfilePopup('{{funame}}','{{profile.occupation}}','{{profile.about}}')" ></i><br><br>  
+  <div class="cover-bg"></div>
+  <div class="user-info-wrap">
+  <div class="user-photo" style="background: #fff url('{{profile.profilePicture}}') no-repeat center; background-size: cover;"></div>
+    <div class="user-info">
+      <div class="user-name">{{funame}}</div>
+      <div class="user-title">Profession: {{profile.occupation}}</div>
+    </div>
+  </div>
+  <div class="user-bio">
+    <h4>About</h4>
+    <p> 
+        {{profile.about}}
+    </p>
+    <div class="social">
+      <div class="social-icons">
+        <a href="" class="fa">
+            <i class="fab fa-behance-square"></i>
+        </a>
+        <a href="" class="fa">
+            <i class="fab fa-facebook-square"></i>
+        </a>
+        <a href="" class="fa">
+            <i class="fab fa-linkedin"></i>
+
+        </a>
+      </div>
+      
+      <div class="message">
+        <a href="" class="fa">
+            <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{{/identity}}
+
+<div id="editProfilePopup" class="popup-form">
+    <span class="close-btn" onclick="closeEditProfilePopup()">&times;</span>
+    <h2 style="color: #27036A; text-align: center;">Edit Profile</h2><br>
+
+    <form id="editProfileForm" action="/mentee/profile/update"  method="POST" enctype="multipart/form-data">
+        <label for="funame">Name:</label>
+        <input type="text" id="funame" name="funame" required value="{{funame}}">
+
+        <label for="occupation">Occupation:</label>
+        <input type="text" id="occupation" name="occupation" value="{{profile.occupation}}">
+
+        <label for="about">About:</label>
+        <textarea id="about" name="about" value="{{profile.about}}"></textarea>
+
+        <label for="profilePicture">Profile Photo:</label>
+        <input type="file" id="profilePicture" accept="image/*" name="profilePicture">
+
+        <button type="submit" onclick="closeEditProfilePopup()">Save Changes</button>
+        <button onclick="closeEditProfilePopup()">Cancel</button>
+
+    </form><br><br>
+</div>
+<div id="overlay" class="overlay"></div>
+
+
+
+<script>
+var parallaxBg = document.getElementById('parallax-bg');
+
+function parallax() {
+    window.addEventListener('scroll', function() {
+        parallaxBg.style.top = (window.scrollY * -0.5) + 'px';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    parallax();
+});
+function openEditProfilePopup(funame,occupation,about) {
+
+        document.getElementById('funame').value=funame;
+        document.getElementById('occupation').value=occupation;
+        document.getElementById('about').value=about;
+        form=document.querySelector('#editProfileForm');
+        form.action="/mentee/profile/update"
+        document.getElementById('editProfilePopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeEditProfilePopup() {
+        document.getElementById('editProfilePopup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+
+
+</script>
+</body>
+</html>

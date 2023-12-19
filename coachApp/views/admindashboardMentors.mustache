@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<style>
+
+  * {
+  outline: none;
+  list-style:none;
+  text-decoration: none;
+}
+
+html,
+body{
+    background-color: #FEFEB7;
+}
+
+.wrapper {
+    background: black;
+    color: #FEFEB7;
+    position: fixed;
+    overflow-x:hidden;
+    transition:0.5s;
+    top: 0;
+    left: 0;
+    z-index:1;
+    height: 100%;
+}
+.sidebar{
+    padding:20px;
+}
+.closebtn{
+    color: #FEFEB7;
+    font-size: 30px;
+    margin-left: 80%;
+    margin-bottom: 8%;
+}
+.closebtn:hover{
+    color: #ED760F;
+}
+.wrapper .sidebar ul li a{
+    display: flex;
+    flex-direction:row;
+    padding: 13px 30px;
+    color: rgb(241, 237, 237);
+    font-size: 16px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.wrapper .sidebar ul li a .icon{
+    color: #FEFEB7;
+    width: 30px;
+    display: inline-block;
+    
+}
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+    color: #FEFEB7;
+    background:#ED760F;
+}
+
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon{
+    color: #27036A;
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+    display: block;
+}
+ .section{
+    width: calc(100% - 225px);
+    margin-left: 20px;
+    transition: all 0.5s ease;
+}
+
+ .section .top_navbar{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+
+}
+
+ .section .top_navbar .hamburger a{
+    font-size: 28px;
+    color: #ED760F;
+}
+
+.section .top_navbar .hamburger a:hover{
+    color: #a2ecff;
+}
+#content {
+    transition: magnify-left .5s;
+    padding: 20px;
+    margin-left:270px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+/* Style the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #D5D4DF;
+    color: #27036A;
+}
+
+table tr:nth-child(even) {
+    background-color: #D5D4DF;
+    color: #ED760F;
+}
+table tr:nth-child(odd) {
+    background-color: #27036A;
+    color: #FEFEB7;
+}
+
+/* Style the Edit and Delete icons */
+#action_icon1:hover {
+    color: palevioletred;
+
+}
+#action_icon2:hover {
+      color: palevioletred;
+    }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .d-box{
+    display: flex;
+    flex-direction:column;
+  }
+  /* Style the Yes and No buttons in the dialog */
+  .dialog-button {
+    flex: 20%;
+    background-color: #ED760F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    max-width:40px;
+    margin:20px;
+      }
+
+  .dialog-button:hover {
+    background-color: #27036A;
+  }
+  /* Edit Popup Modal */
+#edit-modal #create-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  color:#ED760F;
+}
+
+.modal-content {
+  background-color: #FEFEB7;
+  margin: 10% auto;
+  padding: 20px;
+  width: 50%;
+  border-radius: 8px;
+}
+
+#edit-form h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+h2{
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.close-button, .save-button{
+  flex: 1;  
+  background-color:#27036A;
+  color: #FEFEB7;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 4%;
+  margin-left: 25%;
+  margin-right: auto;
+}
+.close-button:hover{
+    background-color: palevioletred;
+}
+.save-button:hover{
+    background-color: green;
+}
+
+.close-button .save-button:hover {
+  background-color: #0056b3;
+}
+
+
+.text-center {
+  text-align: center;
+}
+.searchbar{
+    
+    margin-left: 70%;
+    margin-top: 30px;
+    width: 350px;
+    
+}
+#searchInput{
+    border:1px #ED760F;
+    border-radius: 3px;
+}
+
+#create-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap between columns */
+    max-width: 400px; /* Adjust the maximum width of the form */
+    margin: auto; /* Center the form */
+  }
+#edit-form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap between columns */
+    max-width: 400px; /* Adjust the maximum width of the form */
+    margin: auto; /* Center the form */
+  }
+
+  /* Style for labels and inputs */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #27036A;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border:1px #ED760F;
+    border-radius: 3px;
+  }
+
+
+ 
+</style>
+<body class="active">
+   
+    <div class="searchbar" id="searchbar">
+    <form>    
+    <input type="text" id="searchInput" placeholder="Search for names...">
+    </form>
+    </div>
+
+   <div class="section">
+            <div class="top_navbar">
+                <div class="hamburger">
+                    <a href="#" onclick="openNav()">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+   <div class="wrapper" id="wrapper">
+    <div class="sidebar" id="sidebar">
+
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+            <i class="fas fa-times"></i>
+        </a>        
+          <ul>
+                <li>
+                    <a href="/" >
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/mentees" >
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Mentees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/mentors" class='active'>
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Mentors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/programs">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">Programs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/manager/logout">
+                        <span class="icon"><i class="fas fa-sign-out"></i></span>
+                        <span class="item">Logout</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Settings</span>
+                    </a>
+                </li>
+                
+              
+            </ul>
+
+          
+
+
+    </div>
+    </div>
+    <div class="content" id="content">
+        <h4 style="text-align: center;color: #27036A;">Mentee Management Dashboard</h4><br>
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Programs</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#users}}
+                <tr>
+                    <td id="name">{{funame}}</td>
+                    <td>{{mail}}</td>
+                    <td>{{created.length}}</td>
+                    <td>{{customRadio}}</td>
+                    <td>
+                         
+            
+                        <i id="action_icon1" style="margin-right:15px;" class="fas fa-edit" onclick="openEditModal('{{funame}}', '{{mail}}', '{{customRadio}}')"></i>
+                       
+                        <i id="action_icon2" class="fas fa-trash-alt delete-icon" onclick="showConfirmation('{{mail}}')"></i>
+                   
+                        <div id="confirmation-modal" class="modal">
+                           <div class="modal-content">
+                                <div class="row d-box">         
+                                  <form id="delete-form" class="col" action="" method="POST">
+                                    <h2 style="color: #27036A; text-align: center;">Delete Entry</h2>
+                                    <p style="color: #27036A;">Are you sure you want to delete this Mentor</p>
+                                    <button class="dialog-button btn" id="confirm-delete-button" type="submit" onclick="closeConfirmation()">Yes</button>
+                                    <button type="button" class="dialog-button btn col" id="cancel-delete-button" onclick="closeConfirmation()">No</button>
+ 
+                                </form>
+                             </div> 
+                            </div>
+                            </div>
+
+
+                            <div id="edit-modal" class="modal">
+                            <div class="modal-content">
+                             <h2 style="color: #27036A; text-align:center;">Edit Mentor</h2>
+                                <form id="edit-form" method="POST" action="">
+                                  <label for="funame">Full Name:</label>
+                                  <input type="text" id="funame" name="funame" value={{funame}} required>
+                                  <label for="mail">Email:</label>
+                                  <input type="email" id="mail" name="mail" value={{mail}} required>
+                                  <label for="customRadio">Role:</label>
+                                  <input type="text" id="customRadio" name="customRadio" value={{customRadio}} required>
+                                  <button type="submit" class="save-button" onclick="closeEditModal()">Save</button>
+                                  <button type="button" class="close-button" onclick="closeEditModal()">Close</button>
+                                </form>
+
+                                          
+                                </div>
+                            </div>
+                    
+                    </td>
+                </tr>
+
+    
+
+                {{/users}}
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="create-modal" class="modal">
+        <div class="modal-content">
+         <h2>Create Mentor</h2>
+    <form id="create-form"method="POST" action="/dashboard/mentors/create">
+        <label for="funame">Full Name:</label>
+          <input type="text" id="funame" name="funame" value="full name" required>
+           <label for="mail">Email:</label>
+             <input type="email" id="mail" name="mail" value="email" required>
+            <label for="password">Password:</label>
+              <input type="password" id="password" name="password" value="password" required>
+            <label for="customRadio">Role:</label>
+              <input type="text" id="customRadio" name="customRadio" value="role" required>
+                <button type="submit" class="save-button" onclick="closeCreateModal()">Save</button>
+                <button type="button" onclick="closeCreateModal()" class="close-button">close</button>
+      </form>
+
+        </div>
+    </div>
+
+    <div class="create-item">
+        <button onclick="openCreateModal()" 
+        style="border: none; background-color: #ED760F; color: #FEFEB7; border-radius: 5px; margin-left:90%; min-height: 20px; min-width:40px;">
+             <i class="fas fa-add"></i>Add</button>
+        </div><br><br>
+
+        <div class="pager" style="align-self:center; margin-left:50%;margin-bottom: 5%;">
+            <button style="border: none; background-color: #27036A; color: #FEFEB7; border-radius: 5px;  min-height: 20px; min-width:40px;" 
+            id="prev-page">Previous</button>
+            <span id="page-number">Page 1</span>
+            <button  style="border: none; background-color: #27036A; color: #FEFEB7; border-radius: 5px; min-height: 20px; min-width:40px;"
+            id="next-page">Next</button>
+        </div>
+
+</body>
+<script>
+function openNav() {
+  document.getElementById("wrapper").style.width = "250px";
+  document.getElementById("content").style.marginLeft = "270px";
+}
+
+function closeNav() {
+  document.getElementById("wrapper").style.width = "0";
+  document.getElementById("content").style.marginLeft = "50px";
+}
+function showConfirmation(mail) {
+  document.getElementById('confirmation-modal').style.display = 'flex';
+  form =document.querySelector('#delete-form');
+  form.action = `/dashboard/mentors/${mail}/delete`;
+}
+
+function closeConfirmation() {
+  document.getElementById('confirmation-modal').style.display = 'none';
+}
+function closeEditModal() {
+  const editModal = document.getElementById('edit-modal');
+  editModal.style.display = 'none';
+}
+function openEditModal(funame, mail, customRadio) {
+    document.getElementById('funame').value = funame;
+    document.getElementById('mail').value = mail;
+    document.getElementById('customRadio').value = customRadio;
+    document.getElementById('edit-modal').style.display = 'block';
+    const form = document.querySelector('#edit-form');
+    form.action = `/dashboard/mentors/${mail}/update`;
+}
+
+const table = document.getElementById('data-table');
+    const prevButton = document.getElementById('prev-page');
+    const nextButton = document.getElementById('next-page');
+    const pageNumber = document.getElementById('page-number');
+    const itemsPerPage = 5; // Number of items to show per page
+    let currentPage = 1;
+    let totalItems = table.rows.length - 1; // Subtract header row
+
+    table.addEventListener('click', (event) => {
+    if (event.target.classList.contains('edit-button')) {
+        const row = event.target.closest('tr');
+        const funame = row.querySelector('#name').textContent;
+        const mail = row.cells[1].textContent;
+        const password = row.cells[2].textContent;
+        const customRadio = row.cells[3].textContent;
+        openEditModal(funame, mail, password, customRadio);
+    }
+});
+
+    // Function to display items for the current page
+    function displayPage() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        for (let i = 1; i < table.rows.length; i++) {
+            table.rows[i].style.display = i > startIndex && i <= endIndex ? '' : 'none';
+        }
+
+        pageNumber.textContent = `Page ${currentPage}`;
+    }
+
+   
+    displayPage();
+
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displayPage();
+        }
+    });
+
+    // Next page button click event
+    nextButton.addEventListener('click', () => {
+        if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
+            currentPage++;
+            displayPage();
+        }
+    });
+
+    function closeCreateModal() {
+  const createModal = document.getElementById('create-modal');
+  createModal.style.display = 'none';
+}
+function openCreateModal() {
+    document.getElementById('create-modal').style.display = 'block';
+}
+
+$(document).ready(function () {
+  $('#searchInput').on('keyup', function () {
+    const inputText = $(this).val().toLowerCase();
+    $('#data-table tbody tr').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(inputText) > -1);
+    });
+  });
+});
+   
+    </script>
+</html>

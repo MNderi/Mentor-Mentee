@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100%;
+            background-color: whitesmoke;
+            color: #27036A;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navigation {
+            position: relative;
+            background-color: whitesmoke;
+            z-index: 100;
+        }
+
+        .welcomemessage {
+            min-height: 250px;
+            border-radius: 15px;
+            width: 80%;
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            text-align: center;
+            border: 2px solid #D9D9D9;
+        }
+
+        .content {
+            width: 90%;
+            margin-left: 10%;
+            margin-top: 5%;
+        }
+
+        .grid-slide {
+            margin-top: 4%;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 600px;
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+        .card-text.program {
+            color: #27036A;
+            font-weight: bold;
+        }
+
+        .card-text.venue {
+            color: #ccc;
+        }
+        .card-text.date {
+            color: #D9D9D9;
+            font-size: 10px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .btn-group button {
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        .confirmation-dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .dialog-content {
+            text-align: center;
+        }
+
+        .confirmation-dialog button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        footer{
+            margin-top: 10%;
+        }
+
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+        }
+        #modal-content{
+        background: #FEFEB7;
+        margin: 10% auto;
+        padding: 20px;
+        width: 50%;
+        border-radius: 8px;
+        color: #27036A;
+        }
+        .close {
+        color: #e16868;
+        float: right;
+        font-size: 30px;
+        font-weight: bold;
+        margin-left: 90%;
+        margin-bottom: 40px;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #ED760F;
+        text-decoration: none;
+        cursor: pointer;
+        }
+        #createForm{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px; 
+            max-width: 400px; 
+            margin: auto; 
+        }
+        #createForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #27036A;
+        }
+
+        #createForm button{
+        flex: 1;  
+        background-color:#27036A;
+        color: #FEFEB7;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 200px;
+        margin-top: 4%;
+        margin-left:auto;
+        margin-right: auto;
+        }
+        #createForm button:hover{
+            background-color: palevioletred;
+        }
+        
+        .modalButton {
+            background-color: #27036A;
+            color: #FEFEB7;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px auto;
+            display: block;
+        }
+
+
+        #deleteForm{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px; 
+            max-width: 400px; 
+            margin: auto; 
+        }
+        #deleteForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #27036A;
+        }
+
+        #deleteForm button{
+        flex: 1;  
+        background-color:#27036A;
+        color: #FEFEB7;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 200px;
+        margin-top: 4%;
+        margin-left:auto;
+        margin-right: auto;
+        }
+        #deleteForm button:hover{
+            background-color: palevioletred;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="navigation">
+        {{>memberheader}}
+    </div>
+
+    <div id="content container-fluid">
+
+        <div class="container-fluid px-4" style="margin-top: 10%;">
+            <div class="row mx-auto mt-3 justify-content-center d-flex d-md-none">
+                <button type="button" class="btn btn-sm btn-toggle" data-toggle="button" aria-pressed="false"
+                    autocomplete="off" onclick="toggleDarkLight()">
+                    <div class="handle"></div>
+                </button>
+                <p class="mb-0" color="black">Dark mode </p>
+            </div>
+
+            <div class="welcomemessage">
+                <h1 style="color:#27036A; font-weight: bold;">Hi, Welcome</h1>
+
+                <p>How is it going with the coaching? We hope it's entirely good. Anytime you have questions, feel free
+                    to let us know. In the meantime, this dashboard should help you track your activities.</p><br>
+                  
+                  <h3 style="color:#27036A; font-weight: bold;">
+                        Your current goals:
+                      </h3>
+                      <ul style="list-style-type: none;">
+                        {{#goals}}
+                          <li>{{.}}</li>
+                        {{/goals}}
+                      </ul>
+                      <button class="modalButton" onclick="openDeleteModal()">Delete goals</button>
+            </div>
+
+        </div>
+
+        <button class="modalButton" onclick="openModal()">Add your goals</button>
+        
+
+
+
+        <br><br><br>
+        <h1 style="color:#27036A; font-weight: bold; text-align: center;">Your programs</h1>
+
+        <br><br>
+
+
+        <div class="container mt-4">
+            <div class="row grid-slider">
+                {{#myPrograms}}
+                <div class="col-md-6">
+                    <div class="grid-slide mb-4">
+                        <div class="card">
+                          <div style="background:url('https://images.pexels.com/photos/673857/pexels-photo-673857.jpeg?auto=compress&cs=tinysrgb&w=600'); background-repeat: no-repeat; background-size: cover;"></div>
+                            <div class="card-body" style="background-color: #FFFFFF;">
+                                <p class="card-text program">Program: {{program}}</p>
+                                <p class="card-text venue">Venue: {{venue}}</p>
+                                <p class="card-text date">Start Date: {{date}}</p>
+                                <p class="card-text date">End Date: {{endDate}}</p>
+                                <div class="btn-group">
+                                    <form action="/specificProgram" method="POST">
+                                    <input type="hidden" id="programData" name="program" value="{{program}}">
+                                    <input type="hidden" id="creatorData" name="creator" value="{{creator}}">
+                                    <button type="submit" class="btn" style="background-color: #27036A; color: #FEFEB7;">Go to Program</button>
+                                     </form>
+                                    <button onclick="openDialog(this)" data-program="{{program}}" data-creator="{{creator}}" class="btn" style="background-color:#ED760F; color:#FEFEB7;">Unenroll</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/myPrograms}}
+            </div>
+        </div>
+         
+    <div class="modal" id="myModal">
+
+        <div class="modal-content" id="modal-content">
+         <span style="color: #e16868;" class="close" onclick="closeModal()">&times;</span>
+            <h2>Choose Goals</h2>   
+      <form id="createForm" action="/mentee/add-goals" method="POST">
+        <label><input type="checkbox" name="goals" value="Knowledge Transfer"> Knowledge Transfer</label>
+        <label>
+            <input type="checkbox" name="goals" value="Career Advancement"> Career Advancement
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Personal Growth"> Personal Growth
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Retention and Engagement"> Retention and Engagement
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Succession Planning"> Succession Planning
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Diversity and Inclusion"> Diversity and Inclusion
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Feedback and Evaluation"> Feedback and Evaluation
+        </label>
+        <label>
+            <input type="checkbox" name="goals" value="Personal Connection"> Personal Connection
+        </label>
+        <!-- Add more goals as needed -->
+
+        <button type="submit" onclick="validateForm">Submit</button>
+        <button type="button" onclick="closeModal()">close</button>
+
+    </form>
+    </div>
+    </div>
+
+    <div class="modal" id="deleteModal">
+
+        <div class="modal-content" id="modal-content">
+            <span style="color: #e16868;" class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2>Delete Goals</h2>
+      
+                <form id="deleteForm" action="/mentee/delete-goals" method="POST">
+                    {{#goals}}
+                    <label><input type="checkbox" name="deleteGoals" value="{{.}}"> {{.}}</label>
+                    {{/goals}}
+                    <!-- <label>
+                        <input type="checkbox" name="deleteGoals" value="Career Advancement"> Career Advancement
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Personal Growth"> Personal Growth
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Retention and Engagement"> Retention and Engagement
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Succession Planning"> Succession Planning
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Diversity and Inclusion"> Diversity and Inclusion
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Feedback and Evaluation"> Feedback and Evaluation
+                    </label>
+                    <label>
+                        <input type="checkbox" name="deleteGoals" value="Personal Connection"> Personal Connection
+                    </label> -->
+                    <button type="submit">Delete</button>
+                    <button type="button" onclick="closeDeleteModal()">Close</button>
+
+                </form>
+                
+           
+        </div>
+    </div>
+
+
+        <div id="confirmationDialog" class="confirmation-dialog">
+            <form action="/mentee/unenroll" method="POST"> 
+            <div class="dialog-content">
+                <input type="hidden" id="dialogProgram"  name="program" value="{{program}}">
+                <input type="hidden" id="dialogCreator" name="creator" value="{{creator}}">
+                <p>Are you sure you want to Unenrol from {{program}}?</p>
+                
+            <button id="confirmUnenroll"  type="submit">Yes</button>
+            <button type="button" onclick="closeDialog()"  id="cancelUnenroll">No</button>
+
+            </div>
+        </form>
+    </div>
+
+
+        <div class="welcomemessage">
+            <h1 style="color:#27036A; font-weight: bold;">How was your experience</h1>
+        
+            <p style="color: grey;">Mentorship is a powerful and impactful practice that has been instrumental in personal and 
+                professional development across various fields. At its core, mentorship is a
+                 relationship in which a more experienced or knowledgeable person helps to guide a less 
+                 experienced or less knowledgeable person. However, it's much more than just passing on knowledge; 
+                it's about fostering growth, providing support, and sharing experiences and insights.</p>
+        </div>
+        
+        <footer>
+            {{>footer}}
+        </footer>
+
+        <script>
+
+            
+function openModal() {
+
+document.getElementById('myModal').style.display = 'block';
+}
+function openDeleteModal(){
+    document.getElementById('deleteModal').style.display = 'block';
+
+}
+function closeDeleteModal(){
+    document.getElementById('deleteModal').style.display = 'none';
+
+}
+
+function validateForm() {
+    const checkboxes = document.querySelectorAll('#createForm input[type="checkbox"]');
+    const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+    if (!isAnyChecked) {
+        alert('Please select at least one goal.');
+        return false;
+    }
+    return true;
+}
+
+function closeModal() {
+document.getElementById('myModal').style.display = 'none';
+}
+
+     document.addEventListener("DOMContentLoaded", function () {
+          
+            var welcomeMessage = document.querySelector('.welcomemessage');
+            welcomeMessage.style.opacity = '1';
+            var cards = document.querySelectorAll('.grid-slider .card');
+            cards.forEach(function (card) {
+                card.addEventListener('mouseover', function () {
+                    card.style.transform = 'scale(1.06)';
+                });
+
+                card.addEventListener('mouseout', function () {
+                    card.style.transform = 'scale(1)';
+                });
+            });
+        }); 
+
+function openDialog(element) {
+    var program = element.getAttribute('data-program');
+    var creator = element.getAttribute('data-creator');
+
+    document.getElementById('dialogProgram').value = program;
+    document.getElementById('dialogCreator').value = creator;
+    document.getElementById("confirmationDialog").style.display = "block";
+}
+
+function removeProgram(){
+
+  const program = document.getElementById('programData').value;
+  const creator = document.getElementById('creatorData').value;
+
+  console.log(program,creator);
+
+      const formData = new URLSearchParams();
+      formData.append('program', program);
+      formData.append('creator', creator);
+
+      fetch('/mentee/unenroll', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+      })
+        .then(response => {
+            if (response.ok) {
+              document.getElementById("confirmationDialog").style.display = "none";
+            } else {
+                console.error('Failed to Enroll');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+    }
+
+
+
+function closeDialog(){
+
+    document.getElementById("confirmationDialog").style.display = "none";
+  }      
+
+</script>
+</body>
+
+</html>

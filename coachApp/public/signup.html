@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>mentor||Mentee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Open+Sans&display=swap" rel="stylesheet">
+<link href="../css/home.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<!-- CSS theme (includes Bootstrap)-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-
+FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+</head> 
+<body style="background-color:whitesmoke;
+color:#27036A;
+max-height: 90vh;
+overflow-x:hidden;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+">
+
+
+<style>
+  :root {
+        --primary: #ED760F;
+        --light: #dfe5f7;
+        --dark: #27036A;
+        --text:#FEFEB7;
+    }
+</style>
+
+<div class="container"> 
+   <div class="alert alert-danger" role="alert" id="error-group" style="color: #27036A; display:none;">
+  <ul id="errors" style="color:#27036A"></ul>
+   </div>
+   
+   <div class="container row">
+    <div class="col-12 col-md-5 container">
+     
+     <form style="margin-top:20%;" action="/signup" method="POST">
+        <h4 style="font-size:x-large; margin-bottom: 3%;" class="justify-content-center"> Create a HeYou Account</h4>
+        <label for="funame" style="font-size:16px;">Full Name</label><br>
+        <input type="text" id="funame" name="funame" required class="mb-2 col-md-4 form-control">
+        <label for="mail" style="font-size:16px;">Email Address</label><br>
+        <input type="email" id="mail" name="mail" required class="mb-2 col-md-4 form-control">
+        <label for="password" style="font-size:16px;">Password</label><br>
+        <input type="password" id="password1" name="password" required class="mb-2 col-md-4 form-control">
+        <label for="confirmpassword" style="font-size:16px;">Confirm Password</label><br>
+        <input type="password" id="password2" name="confirmpassword" required class="mb-2 col-md-4 form-control">
+        
+        <input type="radio" id="customRadio" name="customRadio" class="custom-control-input" value="Mentee">
+        <label style="font-size:16px; margin:20px;"class="custom-control-label" for="Mentee">Mentee</label>
+        <input type="radio" id="customRadio" name="customRadio" class="custom-control-input" value="Mentor">
+        <label style="font-size:16px; margin:20px;" class="custom-control-label" for="Mentor">Mentor</label>
+        <br><br>
+        
+        <button  id= "signup-btn"
+        style="font-size:20px;background-color: #ED760F; color: #27036A;" class="btn btn-lg btn-block col-md-12" type="submit">Sign Up</button><br><br>
+        <p style="font-size:16px;">Already have an account?<span style="color:#27036A; margin-left:10px;" ><a href="login">Login</a></span></p>
+     </form>
+
+    </div>
+
+    <div class='col-6'>
+        <img src="https://images.pexels.com/photos/4050320/pexels-photo-4050320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=350&dpr=2">
+    </div>
+
+
+   </div>
+   
+
+</body>
+<script>
+ $('#signup-btn').click(function () {
+    var fullName = $('#funame').val();
+    var email = $('#mail').val();
+    var password1 = $('#password1').val();
+    var password2 = $('#password2').val();
+    var customRadio = $('input[name="customRadio"]:checked').val();
+
+    // Reset error display
+    $('#error-group').hide();
+    $('#errors').html('');
+
+    // Full Name Validation
+    if (fullName.trim() === '') {
+        $('#errors').append('<li>Full name is required</li>');
+        $('#error-group').show();
+    }
+
+    // Email Validation
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+    if (!emailRegex.test(email)) {
+        $('#errors').append('<li>Invalid email address</li>');
+        $('#error-group').show();
+    }
+
+    // Password Length Validation
+    if (password1.length < 6) {
+        $('#errors').append('<li>Password must be at least 6 characters long</li>');
+        $('#error-group').show();
+    }
+
+    // Password Match Validation
+    if (password1 !== password2) {
+        $('#errors').append('<li>Password and Confirm Password do not match</li>');
+        $('#error-group').show();
+        return;
+    }
+
+    // Role Selection Validation
+    if (!customRadio || (customRadio !== 'Mentee' && customRadio !== 'Mentor')) {
+        $('#errors').append('<li>Please select a role (Mentee or Mentor)</li>');
+        $('#error-group').show();
+    }
+
+    // If no errors, proceed with AJAX request
+    if ($('#errors').is(':empty')) {
+        $.ajax({
+            url: '/signup',
+            type: 'POST',
+            cache: false,
+            data: {
+                funame: fullName,
+                mail: email,
+                password: password1,
+                confirmpassword: password2,
+                customRadio: customRadio
+            },
+            success: function () {
+                alert('Your submission was successful');
+            },
+            error: function (data) {
+                console.log(data);
+                $('#error-group').show();
+                var errors = JSON.parse(data.responseText);
+                var errorsContainer = $('#errors');
+                errorsContainer.empty(); // Clear the container
+
+                var errorsList = '';
+                for (var i = 0; i < errors.length; i++) {
+                    errorsList += '<li>' + errors[i].msg + '</li>';
+                }
+
+                errorsContainer.append(errorsList);
+            }
+        });
+    }
+});
+
+</script>
+
+</html>
