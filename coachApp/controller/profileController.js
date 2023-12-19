@@ -49,7 +49,7 @@ exports.addGoals = async (req, res) => {
     try {
         const mentee = await Identity.findOne({ mail: menteeUsername });
         if (!mentee) {
-            return res.status(404).json({ error: 'Mentee not found' });
+           res.status(404).send( 'Mentee not found' );
         }
         // Check if goals array is present in the request body
         if (Array.isArray(req.body.goals)) {
@@ -62,12 +62,13 @@ exports.addGoals = async (req, res) => {
 
         // Save the updated mentee to the database
         await mentee.save();
-        return res.status(200).json({ message: 'Goals added successfully', mentee });
+        res.status(200).send( 'Goals added successfully' );
     } catch (error) {
         console.error('Error adding goals:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).send( 'Internal Server Error' );
     }
 };
+
 
 
 //mentor related functions
@@ -110,24 +111,24 @@ exports.mentorProfileUpdate = async function (req, res) {
 
 exports.deleteGoals = async (req, res) => {
     const menteeUsername = res.locals.username;
-    const goalsToDelete = req.body.deleteGoals; // This will be an array of goal values
+    const goalsToDelete = req.body.deleteGoals;
 
     try {
         const mentee = await Identity.findOne({ mail: menteeUsername });
         if (!mentee) {
-            return res.status(404).json({ error: 'Mentee not found' });
+           res.status(404).send( 'Mentee not found' );
         }
 
-        // Filter out the goals that are to be deleted
         mentee.goals = mentee.goals.filter(goal => !goalsToDelete.includes(goal));
-
-        // Save the updated mentee to the database
         await mentee.save();
-        return res.status(200).json({ message: 'Goals deleted successfully', mentee });
+
+        // Send a success message without exposing detailed mentee information
+        res.status(200).send('Goals deleted successfully' );
     } catch (error) {
         console.error('Error deleting goals:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).send( 'Internal Server Error' );
     }
 };
+
 
   
