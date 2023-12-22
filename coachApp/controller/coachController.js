@@ -71,7 +71,7 @@ exports.register = async function (req, res) {
         res.render('registered', { name: newUser.funame });
     } catch (err) {
         console.error('Error creating identity:', err);
-        res.status(500).json({error:"Internal Server Error"});
+        res.status(500).json({error:"Internal Server Error: Email entered already in use"});
     }
 
 };
