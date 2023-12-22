@@ -432,8 +432,13 @@ h2{
              <input type="email" id="mail" name="mail" value="email" required>
             <label for="password">Password:</label>
               <input type="password" id="password" name="password" value="password" required>
-            <label for="customRadio">Role:</label>
-              <input type="text" id="customRadio" name="customRadio" value="role" required>
+              <label for="confirmpassword">Confirm password:</label>
+
+              <input type="password" id="password2" name="confirmpassword" required class="mb-2 col-md-4 form-control">
+              <input type="radio" id="customRadio" name="customRadio" class="custom-control-input" value="Mentee">
+              <label style="font-size:16px; margin:20px;"class="custom-control-label" for="Mentee">Mentee</label>
+              <input type="radio" id="customRadio" name="customRadio" class="custom-control-input" value="Mentor">
+              <label style="font-size:16px; margin:20px;" class="custom-control-label" for="Mentor">Mentor</label>
                 <button type="submit" class="save-button" onclick="closeCreateModal()">Save</button>
                 <button type="button" onclick="closeCreateModal()" class="close-button">close</button>
       </form>
@@ -479,7 +484,7 @@ function closeEditModal() {
   const editModal = document.getElementById('edit-modal');
   editModal.style.display = 'none';
 }
-function openEditModal(funame, mail,customRadio) {
+function openEditModal(funame, mail, customRadio) {
     document.getElementById('funame').value = funame;
     document.getElementById('mail').value = mail;
     document.getElementById('customRadio').value = customRadio;
