@@ -7,9 +7,10 @@ Mentor-Mentee is a web application designed to connect mentors with mentees for 
 
 ## Table of Contents
 
--[Web Artefact](#webartefact)
+- [Web Artefact](#webartefact)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Architecture](#Architecture)
 - [Contributing](#contributing)
 - [License](#license)
 - [Issues](#issues)
@@ -17,7 +18,7 @@ Mentor-Mentee is a web application designed to connect mentors with mentees for 
 - [Screenshots](#screenshots)
 
 
-## Web Artefact
+# Web Artefact
 
     Access Link: HeYou Web Application
     Git Repository: GitHub - Mentor-Mentee Project
@@ -49,6 +50,8 @@ Not welcome contributions. If you'd like to contribute to Mentor-Mentee, send a 
 License
 This project is licensed under the MIT License.
 
+#Architecture
+The HeYou Web application is structured following the MVC (Model-View-Controller) architecture. This separation of concerns facilitates maintainability and scalability. The application avoids cyclical dependencies between models by managing certain interactions within the controllers.
 #Issues
 If you encounter any issues with Mentor-Mentee, please report them on the Issues page.
 
