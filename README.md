@@ -7,6 +7,7 @@ Mentor-Mentee is a web application designed to connect mentors with mentees for 
 
 ## Table of Contents
 
+-[Web Artefact](#webartefact)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -15,6 +16,23 @@ Mentor-Mentee is a web application designed to connect mentors with mentees for 
 - [Changelog](#changelog)
 - [Screenshots](#screenshots)
 
+
+## Web Artefact
+
+    Access Link: HeYou Web Application
+    Git Repository: GitHub - Mentor-Mentee Project
+
+Test Accounts for Demonstration
+
+    Admin (Manager)
+        Username: marthar@heYou.com
+        Password: find this in the report.
+    Mentee
+        Username: r.nyarindo@alu.ac.uk (signup available)
+        Password: RuthCoach2024!
+    Mentor
+        Username: lancenderitu@alustudent.ac.uk (signup available)
+        Password: fG.c9R#v=!=Tjfa
 
 ## Installation
 
