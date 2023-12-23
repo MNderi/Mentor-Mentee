@@ -42,21 +42,21 @@ To run the Mentor-Mentee application locally, follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/MNderi/Mentor-Mentee.git
-#Usage
+## Usage
 Mentor-Mentee provides a user-friendly platform for mentors and mentees to connect and collaborate. Visit the [live demo](https://heyou.onrender.com/)https://heyou.onrender.com/ to explore its features.
 
-#Contributing
-Not welcome contributions. If you'd like to contribute to Mentor-Mentee, send a request.
+## Contributing
+Not welcoming contributions. If you'd like to contribute to Mentor-Mentee, send a request.
 License
 This project is licensed under the MIT License.
 
-#Architecture
+## Architecture
 The HeYou Web application is structured following the MVC (Model-View-Controller) architecture. This separation of concerns facilitates maintainability and scalability. The application avoids cyclical dependencies between models by managing certain interactions within the controllers.
-#Issues
+## Issues
 If you encounter any issues with Mentor-Mentee, please report them on the Issues page.
 
-#Changelog
+## Changelog
 See the Changelog for details on each version.
 
-#Screenshots
+## Screenshots
 No screenshots
